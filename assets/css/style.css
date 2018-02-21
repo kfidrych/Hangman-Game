@@ -1,0 +1,27 @@
+html {
+    background-image: url("../images/background.jpeg");
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+body {
+    background: rgba(255, 255, 255, 0);
+}
+
+.container {
+    padding-left:180px;
+    padding-top: 140px;
+}
+
+.titles {
+
+}
+
+#shown {
+    letter-spacing: 5px;
+    font-size: 15px;
+    font-weight: bold;
+}
