@@ -9,7 +9,6 @@ var blanks = "";
 var images = ["assets/images/pikachu.png", "assets/images/bulbasaur.png", "assets/images/charmander.png", "assets/images/squirtle.png", "assets/images/charizard.png", "assets/images/venasaur.png", "assets/images/blastoise.png", "assets/images/meowth.png", "assets/images/staryu.png", "assets/images/dragonite.png", "assets/images/psyduck.png", "assets/images/mewtwo.png", "assets/images/vileplume.png", "assets/images/slowpoke.png", "assets/images/raichu.png"];
 var randomIndex = Math.floor(Math.random() * words.length);
 
-
 // Choose a currentWord from words array
 function chooseWord() {
     var selectWord = words[randomIndex];
@@ -28,7 +27,7 @@ function blank(word) {
     var blankWord = "";
     for (var i=0; i<word.length; i++) {
         blankWord += "_";
-    };
+    }
     return blankWord;
 }
 
@@ -46,6 +45,23 @@ function game() {
     lettersGuessed = [];
 }
 game();
+
+// Clear Game
+function clearGame() {
+    randomIndex = Math.floor(Math.random() * words.length);
+    blanks = "";
+    currentWord = "";
+    guesses = 15;
+    lettersGuessed = [];
+    game();
+    var img = document.getElementById("header");
+    img.src = "";
+    img.alt = img.src.slice(img.src.indexOf("images/"), img.src.indexOf("."));
+    document.getElementById("shown").innerHTML = blanks;
+    document.getElementById("wins").innerHTML = wins;
+    document.getElementById("guesses").innerHTML = guesses;
+    document.getElementById("lettersGuessed").innerHTML = lettersGuessed;
+}
 
 // Show initial blank word
 document.getElementById("shown").innerHTML = blanks;
@@ -79,9 +95,9 @@ document.onkeypress = function(event) {
     if (blanks === currentWord) {
         alert("You guessed the Pokemon!")
         usedWords.push(currentWord);
+        selectImg();
         console.log(usedWords);
         wins++;
-        selectImg();
     } else {
         guesses--;
     }
