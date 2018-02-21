@@ -10,39 +10,35 @@ var images = ["assets/images/pikachu.png", "assets/images/bulbasaur.png", "asset
 var randomIndex = Math.floor(Math.random() * words.length);
 
 
-// Choose a random word from word array.
+// Choose a currentWord from words array
 function chooseWord() {
     var selectWord = words[randomIndex];
     return selectWord;
 }
 
-// Select matching picture
+// Set matching picture with currentWord
 function selectImg() {
     var img = document.getElementById("header");
     img.src = images[randomIndex];
     img.alt = img.src.slice(img.src.indexOf("images/"), img.src.indexOf("."));
 }
 
-// Convert a word into blanks.
+// Create the number of blanks for characters in currentWord
 function blank(word) {
     var blankWord = "";
     for (var i=0; i<word.length; i++) {
-        blankWord += "_ ";
+        blankWord += "_";
     };
     return blankWord;
 }
 
-// Change a blank into the appropriate letter.
-function setCharAt(str,index,chr) {
-    return str.substr(0,index) + chr + str.substr(index+1);
+// Replace blank with correctly gussed userGuess
+function replaceAt(str, index, chr) {
+    if (index > str.length) return str;
+    return str.substr(0, index) + chr + str.substr(index+1);
 }
 
-// function replaceAt(str, index, chr) {
-//     if (index > str.length-1) return str;
-//     return str.substr(0, index) + chr + str.substr(index+1);
-// }
-
-// Initiating first word to guess.
+// Create a game
 function game() {
     currentWord = chooseWord();
     blanks = blank(currentWord);
@@ -51,37 +47,54 @@ function game() {
 }
 game();
 
-// Sending new blanked word to HTML document.
+// Show initial blank word
 document.getElementById("shown").innerHTML = blanks;
 
+// Set keypress event functionality
 document.onkeypress = function(event) {
     var userGuess = event.key.toLowerCase();
+    // Checking if there is an unused game word, 
+    // if the key pressed is an alpha key,
+    // if userGuess was already guessed
     if (usedWords.length >= words.length) {
         alert("You have played all of words already! Check back after the next update, coming soon!!")
     } else if (alphabet.indexOf(userGuess) == -1) {
-        alert("Please type a letter to guess!")
+        alert("Please type a letter to guess!");
     } else if (new String(lettersGuessed).indexOf(userGuess) != -1) {
         alert(`You already guessed ${userGuess}!`);
     }
 
+    // Push userGuess into lettersGuessed array
     lettersGuessed.push(userGuess);
     document.getElementById("lettersGuessed").innerHTML = lettersGuessed;
     
-    for (var i=0; currentWord.indexOf(userGuess); i++) {
-        function updateLetter() {
-            var str = currentWord;
-            str = replaceAt(str, currentWord.indexOf(userGuess), userGuess);
-            return str;
+    // Call the replace function on the key pressed
+    for (var i = 0; currentWord[i]; i++) {
+        if (userGuess === currentWord[i]) {
+            blanks = replaceAt(blanks, i, userGuess);
         }
     }
-}    
-//     if (currentWord.indexOf(userGuess) > -1) {
-        // blanks.replaceAt((currentWord.indexOf(userGuess)), userGuess);
-//         for (var i=0; currentWord.indexOf(userGuess) == -1; i++) {
-//             function replaceAt(string, i, guessedLetter) {
-//                 return string.substring(0, i) + userGuess + string.substring(i + 1);
-                
-//             } replaceAt(currentWord, currentWord.indexOf(userGuess), userGuess);
-//         } 
-//     }
-// }
+
+    // Game Win
+    if (blanks === currentWord) {
+        alert("You guessed the Pokemon!")
+        usedWords.push(currentWord);
+        console.log(usedWords);
+        wins++;
+        selectImg();
+    } else {
+        guesses--;
+    }
+
+    // Game Loss
+    if (guesses <= 0) {
+        alert("You are out of guesses! You lose...");
+        usedWords.push(currentWord);
+        game();
+    }
+
+    document.getElementById("shown").innerHTML = blanks;
+    document.getElementById("wins").innerHTML = wins;
+    document.getElementById("guesses").innerHTML = guesses;
+    document.getElementById("lettersGuessed").innerHTML = lettersGuessed;     
+}   
