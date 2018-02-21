@@ -39,6 +39,7 @@ function replaceAt(str, index, chr) {
 
 // Create a game
 function game() {
+    alert("Press any key to get started!");
     currentWord = chooseWord();
     blanks = blank(currentWord);
     guesses = 15;
