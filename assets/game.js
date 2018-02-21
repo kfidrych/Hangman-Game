@@ -37,6 +37,11 @@ function setCharAt(str,index,chr) {
     return str.substr(0,index) + chr + str.substr(index+1);
 }
 
+// function replaceAt(str, index, chr) {
+//     if (index > str.length-1) return str;
+//     return str.substr(0, index) + chr + str.substr(index+1);
+// }
+
 // Initiating first word to guess.
 function game() {
     currentWord = chooseWord();
@@ -62,13 +67,21 @@ document.onkeypress = function(event) {
     lettersGuessed.push(userGuess);
     document.getElementById("lettersGuessed").innerHTML = lettersGuessed;
     
-    if (new String(currentWord.indexOf(userGuess)) > -1) {
-        // blanks.replaceAt((currentWord.indexOf(userGuess)), userGuess);
-        for (var i=0; currentWord.indexOf(userGuess) == -1; i++) {
-            function replaceAt(string, i, guessedLetter) {
-                return string.substring(0, i) + userGuess + string.substring(i + 1);
-                
-            } replaceAt(currentWord, currentWord.indexOf(userGuess), userGuess);
-        } 
+    for (var i=0; currentWord.indexOf(userGuess); i++) {
+        function updateLetter() {
+            var str = currentWord;
+            str = replaceAt(str, currentWord.indexOf(userGuess), userGuess);
+            return str;
+        }
     }
-}
+}    
+//     if (currentWord.indexOf(userGuess) > -1) {
+        // blanks.replaceAt((currentWord.indexOf(userGuess)), userGuess);
+//         for (var i=0; currentWord.indexOf(userGuess) == -1; i++) {
+//             function replaceAt(string, i, guessedLetter) {
+//                 return string.substring(0, i) + userGuess + string.substring(i + 1);
+                
+//             } replaceAt(currentWord, currentWord.indexOf(userGuess), userGuess);
+//         } 
+//     }
+// }
