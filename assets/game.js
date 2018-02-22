@@ -72,18 +72,12 @@ document.onkeypress = function(event) {
     var userGuess = event.key.toLowerCase();
     // Checking if there is an unused game word, 
     // if the key pressed is an alpha key,
-    // if userGuess was already guessed
+    // if userGuess was already guessed/psuhing into guesses array
     if (usedWords.length >= words.length) {
         alert("You have played all of words already! Check back after the next update, coming soon!!")
     } else if (alphabet.indexOf(userGuess) == -1) {
         alert("Please type a letter to guess!");
-    } else if (new String(lettersGuessed).indexOf(userGuess) != -1) {
-        alert(`You already guessed ${userGuess}!`);
-    }
-
-    // Push userGuess into lettersGuessed array
-    lettersGuessed.push(userGuess);
-    document.getElementById("lettersGuessed").innerHTML = lettersGuessed;
+    } else if (lettersGuessed.indexOf(userGuess) === -1 ? lettersGuessed.push(userGuess) : alert(`You already guessed ${userGuess}!`));   
     
     // Call the replace function on the key pressed
     for (var i = 0; currentWord[i]; i++) {
