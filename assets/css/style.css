@@ -9,10 +9,13 @@ html {
 
 body {
     background: rgba(255, 255, 255, 0);
+    color: #3c58a4;
+    font-family: 'Kavivanar', cursive;
+    font-weight: bold;
 }
 
 .col-sm-7 {
-    top: 140px;
+    top: 110px;
     text-align: center;
 }
 
@@ -25,12 +28,23 @@ img {
     width: auto;
 }
 
-.titles {
-
+.col-sm-7 img {
+    height: 90px;
+    width: auto;
 }
+
 
 #shown {
     letter-spacing: 5px;
+    font-size: 20px;
+}
+
+#lettersGuessed {
+    letter-spacing: 5px;
     font-size: 15px;
-    font-weight: bold;
+}
+
+#newGame {
+    background-color: #ffca0a;
+    color: #3c58a4;
 }
