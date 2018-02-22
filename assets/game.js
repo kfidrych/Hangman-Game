@@ -93,7 +93,7 @@ document.onkeypress = function(event) {
         selectImg();
         console.log(usedWords);
         wins++;
-    } else {
+    } else if (!(alphabet.indexOf(userGuess) == -1)) {
         guesses--;
     }
 
